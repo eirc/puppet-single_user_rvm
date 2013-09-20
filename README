@@ -1,16 +1,19 @@
 single_user_rvm
+===============
 
-This is the single_user_rvm module.
+Install and manage [RVM](https://rvm.io/) and Ruby installations in [Single-User](https://rvm.io/rvm/install#explained) mode.
 
 License
 -------
 
+Apache License, Version 2.0
 
 Contact
 -------
 
+Eric Cohen <eirc.eirc@gmail.com>
 
 Support
 -------
 
-Please log tickets and issues at our [Projects site](http://projects.example.com)
+Please log tickets and issues at our [Github issues page](https://github.com/eirc/puppet-single_user_rvm/issues)

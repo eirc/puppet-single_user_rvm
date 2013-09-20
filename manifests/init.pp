@@ -27,14 +27,6 @@
 #    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ]
 #  }
 #
-# === Authors
-#
-# Author Name <author@domain.com>
-#
-# === Copyright
-#
-# Copyright 2013 Your name here, unless otherwise noted.
-#
 class single_user_rvm {
 
 
