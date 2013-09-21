@@ -15,7 +15,8 @@ Install a couple of Rubies
 --------------------------
 
     single_user_rvm::install_ruby { 'ruby-1.9.3-p392': user => 'username' }
-    single_user_rvm::install_ruby { 'ruby-2.0.0-p247': user => 'username' }
+    single_user_rvm::install_ruby { 'ruby-2.0.0-p247': user => 'username', require Single_user_rvm::Install['username']
+}
 
 More info in [install_ruby.pp](manifests/install_ruby.pp)
 
