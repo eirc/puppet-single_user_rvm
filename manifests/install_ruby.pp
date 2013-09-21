@@ -64,6 +64,9 @@
 # [*movable*]
 #   Set to true enable the --movable flag. More info on the flag function in doc above. Defaults to false.
 #
+# [*home*]
+#   Set to home directory of user. Defaults to /home/${user}.
+#
 # === Examples
 #
 # Install Ruby 2.0.0 p247 for user 'dude':
@@ -79,7 +82,14 @@ define single_user_rvm::install_ruby (
   $force_binary     = false,
   $disable_binary   = false,
   $movable          = false,
+  $home     = '',
 ) {
+
+  if $home {
+    $homedir = $home
+  } else {
+    $homedir = "/home/${user}"
+  }
 
   if $force_binary     { $binary_opt           = '--binary' }
   if $disable_binary   { $disable_binary_opt   = '--disable-binary' }
@@ -90,7 +100,7 @@ define single_user_rvm::install_ruby (
 
   exec { "su -c '${command}' - ${user}":
     path    => '/usr/bin:/usr/sbin:/bin',
-    creates => "/home/${user}/.rvm/rubies/${ruby_string}",
+    creates => "${homedir}/.rvm/rubies/${ruby_string}",
     timeout => 3600, # takes too long... lets give it some time
     require => Single_user_rvm::Install[$user],
   }

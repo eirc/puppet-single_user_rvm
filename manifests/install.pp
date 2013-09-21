@@ -18,6 +18,9 @@
 #   Content for the global .rvmrc file placed in the user's homedir. If empty, .rvmrc will no be touched.
 #   Defaults to ''.
 #
+# [*home*]
+#   Set to home directory of user. Defaults to /home/${user}.
+#
 # === Examples
 #
 # Plain simple installation for user 'dude'
@@ -36,18 +39,32 @@
 #     rvmrc => 'rvm_trust_rvmrcs_flag=1',
 #   }
 #
+# Use a custom home directory.
+#
+#   single_user_rvm::install { 'dude':
+#     home  => '/path/to/special/home',
+#   }
+#
 # Use a title different than the user name.
 #
 #   single_user_rvm::install { 'some other title':
 #     user  => 'dude',
 #     rvmrc => 'rvm_trust_rvmrcs_flag=1',
+#     home  => '/path/to/special/home',
 #   }
 #
 define single_user_rvm::install (
   $user     = $title,
   $version  = 'stable',
   $rvmrc    = '',
+  $home     = '',
 ) {
+
+  if $home {
+    $homedir = $home
+  } else {
+    $homedir = "/home/${user}"
+  }
 
   require single_user_rvm::dependencies
 
@@ -55,12 +72,12 @@ define single_user_rvm::install (
 
   exec { "su -c '${command}' - ${user}":
     path    => '/usr/bin:/usr/sbin:/bin',
-    creates => "/home/${user}/.rvm/",
+    creates => "${homedir}/.rvm/",
     require => [ Package['curl'], Package['bash'], User[$user] ],
   }
 
   if $rvmrc {
-    file { "/home/${user}/.rvmrc":
+    file { "${homedir}/.rvmrc":
       ensure  => present,
       owner   => $user,
       content => $rvmrc,
