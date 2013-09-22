@@ -96,7 +96,7 @@ define single_user_rvm::install_ruby (
   if $movable          { $movable_opt          = '--movable' }
   if $verify_downloads { $verify_downloads_opt = "--verify-downloads ${verify_downloads}" }
 
-  $command = "rvm install ${ruby_string} ${binary_opt} ${disable_binary_opt} ${movable_opt} ${verify_downloads_opt}"
+  $command = "${homedir}/.rvm/bin/rvm install ${ruby_string} ${binary_opt} ${disable_binary_opt} ${movable_opt} ${verify_downloads_opt}"
 
   exec { "su -c '${command}' - ${user}":
     path    => '/usr/bin:/usr/sbin:/bin',
