@@ -72,7 +72,7 @@ define single_user_rvm::install (
 
   exec { "su -c '${command}' - ${user}":
     path    => '/usr/bin:/usr/sbin:/bin',
-    creates => "${homedir}/.rvm/",
+    creates => "${homedir}/.rvm/bin/rvm",
     require => [ Package['curl'], Package['bash'], User[$user] ],
   }
 

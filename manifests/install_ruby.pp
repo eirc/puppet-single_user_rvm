@@ -100,7 +100,7 @@ define single_user_rvm::install_ruby (
 
   exec { "su -c '${command}' - ${user}":
     path    => '/usr/bin:/usr/sbin:/bin',
-    creates => "${homedir}/.rvm/rubies/${ruby_string}",
+    creates => "${homedir}/.rvm/rubies/${ruby_string}/bin/ruby",
     timeout => 3600, # takes too long... lets give it some time
     require => Single_user_rvm::Install[$user],
   }
