@@ -68,9 +68,9 @@ define single_user_rvm::install (
 
   require single_user_rvm::dependencies
 
-  $command = "curl -L https://get.rvm.io | bash -s ${version}"
+  $install_command = "su -c 'curl -L https://get.rvm.io | bash -s ${version}' - ${user}"
 
-  exec { "su -c '${command}' - ${user}":
+  exec { $install_command:
     path    => '/usr/bin:/usr/sbin:/bin',
     creates => "${homedir}/.rvm/bin/rvm",
     require => [ Package['curl'], Package['bash'], User[$user] ],
