@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.0
+
+* Enforce configured RVM version and.
+* Added auto-upgrade option.
+
 ## 0.2.0
 
 * Pull #1 Add support for special home directories.
