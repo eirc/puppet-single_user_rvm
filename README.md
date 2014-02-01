@@ -17,6 +17,13 @@ Install a couple of Rubies
     single_user_rvm::install_ruby { 'ruby-1.9.3-p392': user => 'username' }
     single_user_rvm::install_ruby { 'ruby-2.0.0-p247': user => 'username' }
 
+Set the default ruby
+--------------------
+
+    single_user_rvm::default {'ruby-1.9.3': user => 'username' }
+
+ruby-1.9.3 is a grep match on the output of rvm current
+
 More info in [install_ruby.pp](manifests/install_ruby.pp)
 
 License
