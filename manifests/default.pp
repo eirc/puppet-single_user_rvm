@@ -30,13 +30,18 @@ define single_user_rvm::default (
       }
       
     
-      $command =  "${homedir}/.rvm/bin/rvm use --default ${title}"
-      $check_command = "${homedir}/.rvm/bin/rvm current | grep ${title}"
+      $command =  "rvm use --default ${title}"
+      $check_command = "rvm current"
 
-    exec { "su -c '${command}' - ${user}":
-      path => "/usr/bin:/usr/sbin:/bin",
+    exec { "su -l ${user} -c '${command}'":
+      path => "/usr/bin:/usr/sbin:/bin:~/.rvm/bin",
+      provider => shell,
+      logoutput => true,
+      cwd => "/home/${user}",
       require => Single_user_rvm::Install[$user],
-      unless => "su -c '${check_command}' - ${user}"
+      unless => "su -l ${user} -c '${check_command}' | grep ${title}"
     }
-  }
+
+
+    }
 
