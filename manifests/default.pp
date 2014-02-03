@@ -36,7 +36,7 @@ define single_user_rvm::default (
     exec { "su -l ${user} -c '${command}'":
       path => "/usr/bin:/usr/sbin:/bin:~/.rvm/bin",
       provider => shell,
-      logoutput => true,
+      logoutput => false,
       cwd => "/home/${user}",
       require => Single_user_rvm::Install[$user],
       unless => "su -l ${user} -c '${check_command}' | grep ${title}"
