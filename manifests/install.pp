@@ -90,6 +90,14 @@ define single_user_rvm::install (
 
   $install_command = "su -c 'curl -L https://get.rvm.io | bash -s ${version}' - ${user}"
 
+  #execute gpg key installation before installing rvm
+  #key needs to be installed in user gpg keychain
+  exec { 'install-gpg':
+    command     => 'gpg2 --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3',
+    user        => ${user},
+    unless      => 'gpg2 --list-keys D39DC0E3',
+  } ->
+
   exec { $install_command:
     path    => '/usr/bin:/usr/sbin:/bin',
     creates => "${homedir}/.rvm/bin/rvm",
