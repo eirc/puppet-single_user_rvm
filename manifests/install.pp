@@ -87,13 +87,17 @@ define single_user_rvm::install (
   }
 
   require single_user_rvm::dependencies
-
+  $import_key = "curl -sSL https://rvm.io/mpapis.asc | su -c 'gpg2 --import -' ${user}"
   $install_command = "su -c 'curl -L https://get.rvm.io | bash -s ${version}' - ${user}"
-
+  
+  exec { $import_key:
+    path    => '/usr/bin:/usr/sbin:/bin',
+    onlyif => "test `gpg --list-keys | grep 'RVM signing' | wc -l` -eq 0"
+  }
   exec { $install_command:
     path    => '/usr/bin:/usr/sbin:/bin',
     creates => "${homedir}/.rvm/bin/rvm",
-    require => [ Package['curl'], Package['bash'], User[$user] ],
+    require => [ Package['curl'], Package['bash'], User[$user], Exec[$import_key] ],
   }
 
   $rvm_executable = "${homedir}/.rvm/bin/rvm"
