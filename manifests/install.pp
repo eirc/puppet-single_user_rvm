@@ -111,7 +111,7 @@ define single_user_rvm::install (
     if $version == 'head' {
       $version_check = ' (master) '
     } elsif $version =~ /^\d+\.\d+\.\d+/ {
-      $version_check = " ${version} (version) "
+      $version_check = " ${version} (${version}) "
     } else {
       $version_check = " (${version}) "
     }
