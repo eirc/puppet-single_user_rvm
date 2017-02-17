@@ -51,9 +51,9 @@
 # [*user*]
 #   The user for which this Ruby will be installed. Defaults to 'rvm'.
 #
-# [*verify downloads*]
+# [*verify_downloads*]
 #   Set to a value that will be added to the --verify-downloads flag. If empty the whole flag will not be added. More
-#   info on the flag function in doc above. Defaults to ''.
+#   info on the flag function in doc above. Defaults to false.
 #
 # [*force_binary*]
 #   Set to true enable the --binary flag. More info on the flag function in doc above. Defaults to false.
@@ -78,7 +78,7 @@
 define single_user_rvm::install_ruby (
   $ruby_string      = $title,
   $user             = 'rvm',
-  $verify_downloads = '',
+  $verify_downloads = false,
   $force_binary     = false,
   $disable_binary   = false,
   $movable          = false,
