@@ -21,7 +21,7 @@
 #
 # [*rvmrc*]
 #   Content for the global .rvmrc file placed in the user's homedir. If empty, .rvmrc will no be touched.
-#   Defaults to ''.
+#   Defaults to false.
 #
 # [*home*]
 #   Set to home directory of user. Defaults to /home/${user}.
@@ -75,8 +75,8 @@
 define single_user_rvm::install (
   $user         = $title,
   $version      = 'stable',
-  $rvmrc        = '',
-  $home         = '',
+  $rvmrc        = false,
+  $home         = false,
   $auto_upgrade = false,
 ) {
 
